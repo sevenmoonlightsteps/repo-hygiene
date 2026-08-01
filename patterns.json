@@ -1,0 +1,38 @@
+{
+  "_comment": "Default pre-publication leakage pattern set for repo-hygiene. Versioned config, not code - extend per-repo via --config <path> pointing at a file with the same 'classes' shape (patterns are appended to the matching class; severity overrides if given). Patterns are Python re, case-insensitive.",
+  "version": 1,
+  "classes": {
+    "home_paths": {
+      "severity": "high",
+      "patterns": [
+        "/home/[A-Za-z0-9_.-]+",
+        "/Users/[A-Za-z0-9_.-]+",
+        "C:\\\\Users\\\\[A-Za-z0-9_.-]+"
+      ]
+    },
+    "secrets": {
+      "severity": "high",
+      "patterns": [
+        "AKIA[0-9A-Z]{16}",
+        "-----BEGIN [A-Z ]*PRIVATE KEY-----",
+        "api[_-]?key\\s*[:=]\\s*['\"]?[A-Za-z0-9/+_-]{8,}",
+        "secret[_-]?key\\s*[:=]\\s*['\"]?[A-Za-z0-9/+_-]{8,}",
+        "password\\s*[:=]\\s*['\"]?\\S+",
+        "gh[pousr]_[A-Za-z0-9]{20,}",
+        "glpat-[A-Za-z0-9_-]{20}"
+      ]
+    },
+    "generic_email": {
+      "severity": "medium",
+      "patterns": [
+        "[A-Za-z0-9_.+-]+@[A-Za-z0-9-]+\\.[A-Za-z0-9.-]+"
+      ]
+    },
+    "internal_hostnames": {
+      "severity": "low",
+      "patterns": [
+        "\\b[A-Za-z0-9-]+\\.(?:internal|corp|local)\\b"
+      ]
+    }
+  }
+}
