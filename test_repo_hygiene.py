@@ -125,7 +125,7 @@ def test_author_identity_in_history_is_detected(tmp_path):
     compiled = _compiled()
 
     history_findings = engine.scan_history(repo, compiled)
-    identity_hits = [f for f in history_findings if f.cls in ("operator_identity", "generic_email")]
+    identity_hits = [f for f in history_findings if f.cls == "generic_email"]
     assert identity_hits, "author email/name should be flagged as history leakage"
     assert all(f.file.startswith("<commit-metadata:") for f in identity_hits)
     assert any(f.file == "<commit-metadata:author>" for f in identity_hits)
